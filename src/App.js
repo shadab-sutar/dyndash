@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import "antd/dist/antd.css";
+
+import { Route, Switch } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import ArticleListing from "./components/ArticleListing";
+import ProjectListing from "./components/ProjectListing";
+import HomePage from "./components/HomePage";
+import Login from "./components/Login";
+import About from "./sitepublic/About";
+import Articles from "./sitepublic/Articles";
+import Projects from "./sitepublic/Projects";
+import Article from "./sitepublic/Article";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="bodyComponents">
+        <Switch>
+          <Route path="/" component={About} exact />
+          <Route path="/articles" component={Articles} />
+          <Route path="/projects" component={Projects} />
+          <Route path="/article/:id" component={Article} />
+          <Route path="/adminportal" component={Login} />
+          <Route path="/Dashboard" component={Dashboard} />
+          <Route path="/homepage" component={HomePage} />
+          <Route path="/articlelist" component={ArticleListing} />
+          <Route path="/projectlist" component={ProjectListing} />
+        </Switch>
+      </div>
     </div>
   );
 }

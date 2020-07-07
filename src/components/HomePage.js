@@ -7,13 +7,16 @@ const { TextArea } = Input;
 function HomePage() {
   const [visibleEdit, setVisibleEdit] = React.useState(false);
   const [visibleSave, setVisibleSave] = React.useState(true);
+  const [editModeOn, setEditMode] = React.useState(true);
 
   const onEdit = () => {
+    setEditMode(!editModeOn);
     setVisibleEdit(true);
     setVisibleSave(false);
   };
 
   const onSave = () => {
+    setEditMode(!editModeOn);
     setVisibleSave(true);
     setVisibleEdit(false);
   };
@@ -23,15 +26,23 @@ function HomePage() {
       <Header />
       <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
         <Col span={12}>
-          <Input placeholder="Enter Logo URL" style={{ width: "98%" }} />
+          <Input
+            placeholder="Enter Logo URL"
+            style={{ width: "98%" }}
+            disabled={editModeOn}
+          />
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Input placeholder="Enter Avatar URL" style={{ width: "98%" }} />
+          <Input
+            placeholder="Enter Avatar URL"
+            style={{ width: "98%" }}
+            disabled={editModeOn}
+          />
         </Col>
       </Row>
       <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
         <Col span={24}>
-          <Input placeholder="Enter Punchline" />
+          <Input placeholder="Enter Punchline" disabled={editModeOn} />
         </Col>
       </Row>
       <Row style={{ marginTop: "10px", marginBottom: "10px" }}>
@@ -39,35 +50,40 @@ function HomePage() {
           <TextArea
             placeholder="Enter Content"
             autoSize={{ minRows: 20, maxRows: 20 }}
+            disabled={editModeOn}
           />
         </Col>
       </Row>
       <Row>
         <Col span={12}>
-          <Input placeholder="Enter Copyrights Text" />
+          <Input placeholder="Enter Copyrights Text" disabled={editModeOn} />
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Button
-            type="primary"
-            shape="round"
-            size="large"
-            icon={<EditOutlined />}
-            onClick={onEdit}
-            disabled={visibleEdit}
-            style={{ marginRight: "10px" }}
-          >
-            Edit
-          </Button>
-          <Button
-            type="primary"
-            shape="round"
-            size="large"
-            icon={<SaveOutlined />}
-            onClick={onSave}
-            disabled={visibleSave}
-          >
-            Save
-          </Button>
+          {editModeOn && (
+            <Button
+              type="primary"
+              shape="round"
+              size="large"
+              icon={<EditOutlined />}
+              onClick={onEdit}
+              disabled={visibleEdit}
+              style={{ marginRight: "10px" }}
+            >
+              Edit
+            </Button>
+          )}
+          {!editModeOn && (
+            <Button
+              type="primary"
+              shape="round"
+              size="large"
+              icon={<SaveOutlined />}
+              onClick={onSave}
+              disabled={visibleSave}
+            >
+              Save
+            </Button>
+          )}
         </Col>
       </Row>
     </div>

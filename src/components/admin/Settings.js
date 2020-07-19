@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "antd";
 class Settings extends React.Component {
   render() {
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content } = Layout;
     return (
       <div>
         <Header

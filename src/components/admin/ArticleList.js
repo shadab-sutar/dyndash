@@ -1,8 +1,17 @@
 import React from "react";
-import { Layout } from "antd";
+import { Layout, Table, Tooltip } from "antd";
+import { PlusCircleOutlined, FilterOutlined } from "@ant-design/icons";
 class ArticleList extends React.Component {
   render() {
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content } = Layout;
+    const columns = [
+      { title: "Title" },
+      { title: "Author" },
+      { title: "Created On" },
+      { title: "Status" },
+      { title: "Actions" },
+    ];
+    const data = [];
     return (
       <div>
         <Header
@@ -16,7 +25,28 @@ class ArticleList extends React.Component {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360, marginTop: "10px" }}
           >
-            <h1>Article List</h1>
+            <div
+              style={{
+                textAlign: "right",
+                height: "40px",
+              }}
+            >
+              <Tooltip title="Advance Filter">
+                <FilterOutlined
+                  style={{
+                    fontSize: "24px",
+                    marginRight: "10px",
+                    color: "blue",
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title="New Article">
+                <PlusCircleOutlined
+                  style={{ fontSize: "24px", color: "green" }}
+                />
+              </Tooltip>
+            </div>
+            <Table columns={columns} dataSource={data} />
           </div>
         </Content>
       </div>

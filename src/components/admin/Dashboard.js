@@ -1,6 +1,6 @@
 import React from "react";
 import "./Style.css";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -10,18 +10,31 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 
+import Home from "./Home";
+import ArticleList from "./ArticleList";
+import ProjectList from "./ProjectList";
+import Analytics from "./Analytics";
+import Settings from "./Settings";
+
+import { Link } from "react-router-dom";
+
 class Dashboard extends React.Component {
   state = {
     collapsed: false,
+    activeLink: "1",
   };
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
 
+  menuSelect = (e) => {
+    this.setState({ activeLink: e.key });
+  };
+
   render() {
-    const { Header, Content, Footer, Sider } = Layout;
-    const { SubMenu } = Menu;
+    const { Footer, Sider } = Layout;
+    const { activeLink } = this.state;
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
@@ -33,40 +46,60 @@ class Dashboard extends React.Component {
             <b>Dynamic Dashboard</b>
           </div>
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
+            <Menu.Item
+              key="1"
+              icon={<PieChartOutlined />}
+              onClick={this.menuSelect}
+            >
               Dashboard
             </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
+            <Menu.Item
+              key="2"
+              icon={<DesktopOutlined />}
+              onClick={this.menuSelect}
+            >
               Analytics
             </Menu.Item>
-            <Menu.Item key="3" icon={<FileOutlined />}>
+            <Menu.Item
+              key="3"
+              icon={<FileOutlined />}
+              onClick={this.menuSelect}
+            >
               Articles
             </Menu.Item>
-            <Menu.Item key="4" icon={<FileProtectOutlined />}>
+            <Menu.Item
+              key="4"
+              icon={<FileProtectOutlined />}
+              onClick={this.menuSelect}
+            >
               Projects
             </Menu.Item>
-            <Menu.Item key="5" icon={<SettingOutlined />}>
+            <Menu.Item
+              key="5"
+              icon={<SettingOutlined />}
+              onClick={this.menuSelect}
+            >
               Settings
             </Menu.Item>
             <Menu.Item key="6" icon={<LogoutOutlined />}>
-              Logout
+              <Link to={`/`}>Logout</Link>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div
-              className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
-            >
-              Bill is a cat.
-            </div>
-          </Content>
+          {activeLink === "1" ? (
+            <Home />
+          ) : activeLink === "2" ? (
+            <Analytics />
+          ) : activeLink === "3" ? (
+            <ArticleList />
+          ) : activeLink === "4" ? (
+            <ProjectList />
+          ) : activeLink === "5" ? (
+            <Settings />
+          ) : (
+            ""
+          )}
           <Footer style={{ textAlign: "center" }}>
             www.shadabsutar.com ©2020. Created by Shadab Sutar.
           </Footer>

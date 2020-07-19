@@ -1,9 +1,29 @@
 import React from "react";
-import { Layout, Table, Tooltip } from "antd";
+import { Layout, Table, Tooltip, Modal, Button, Input, Typography } from "antd";
 import { PlusCircleOutlined, FilterOutlined } from "@ant-design/icons";
 class ArticleList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      mVisible: false,
+    };
+  }
+
+  newArticle = () => {
+    this.setState({ mVisible: true });
+  };
+
+  handleOk = () => {
+    this.setState({ mVisible: false });
+  };
+
+  handleCancel = () => {
+    this.setState({ mVisible: false });
+  };
   render() {
+    const { Text } = Typography;
     const { Header, Content } = Layout;
+    const { mVisible } = this.state;
     const columns = [
       { title: "Title" },
       { title: "Author" },
@@ -43,10 +63,31 @@ class ArticleList extends React.Component {
               <Tooltip title="New Article">
                 <PlusCircleOutlined
                   style={{ fontSize: "24px", color: "green" }}
+                  onClick={this.newArticle}
                 />
               </Tooltip>
             </div>
             <Table columns={columns} dataSource={data} />
+            <Modal
+              style={{ width: "100%" }}
+              title="New Article"
+              visible={mVisible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+              footer={[
+                <Button key="back" onClick={this.handleCancel}>
+                  Cancel
+                </Button>,
+                <Button key="submit" type="primary" onClick={this.handleOk}>
+                  Save
+                </Button>,
+              ]}
+            >
+              <Text>Title</Text>
+              <Input />
+              <Text>Article</Text>
+              <textarea rows="20" cols="65"></textarea>
+            </Modal>
           </div>
         </Content>
       </div>

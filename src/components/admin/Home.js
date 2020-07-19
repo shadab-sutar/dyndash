@@ -3,7 +3,7 @@ import { Layout } from "antd";
 
 class Home extends React.Component {
   render() {
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content } = Layout;
     return (
       <div>
         <Header

@@ -22,10 +22,16 @@ class Dashboard extends React.Component {
   state = {
     collapsed: false,
     activeLink: "1",
+    logo: "Dynamic Dashboard",
   };
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
+    if (collapsed) {
+      this.setState({ logo: "DD" });
+    } else {
+      this.setState({ logo: "Dynamic Dashboard" });
+    }
   };
 
   menuSelect = (e) => {
@@ -34,7 +40,7 @@ class Dashboard extends React.Component {
 
   render() {
     const { Footer, Sider } = Layout;
-    const { activeLink } = this.state;
+    const { activeLink, logo } = this.state;
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
@@ -43,7 +49,7 @@ class Dashboard extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo">
-            <b>Dynamic Dashboard</b>
+            <b>{logo}</b>
           </div>
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
             <Menu.Item
@@ -101,7 +107,7 @@ class Dashboard extends React.Component {
             ""
           )}
           <Footer style={{ textAlign: "center" }}>
-            www.shadabsutar.com ©2020. Created by Shadab Sutar.
+            www.shadabsutar.com © 2019 - 2020. Created by Shadab Sutar.
           </Footer>
         </Layout>
       </Layout>
